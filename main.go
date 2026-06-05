@@ -1,6 +1,8 @@
 package main
 
 import (
+	"api-gateway/middleware"
+	"log"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
@@ -15,7 +17,15 @@ var serviceMap = map[string]string{
 }
 
 func main() {
+
+	err := middleware.PingRedis()
+	if err != nil {
+		log.Fatal("Redis connection failed:", err)
+	}
+
 	router := gin.Default()
+	// middleware
+	router.Use(middleware.RateLimiterMiddleware)
 
 	router.Any("/*path", GateWayHandler)
 
