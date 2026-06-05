@@ -30,6 +30,7 @@ func RateLimiterMiddleware(c *gin.Context) {
 		c.JSON(http.StatusTooManyRequests, map[string]string{
 			"message": "Rate limit exceeded!",
 		})
+		c.Abort()
 
 		return
 	}
