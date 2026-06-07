@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	RequestsPerMinute = 1
+	RequestsPerMinute = 100
 )
 
 func RateLimiterMiddleware(c *gin.Context) {
